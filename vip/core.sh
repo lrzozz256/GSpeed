@@ -67,17 +67,9 @@ optimize_app() {
       cache_path="/sdcard/Android/data/${package}/cache"
       #[ -e "$cache_path" ] && rm -rf "$cache_path" > /dev/null 2>&1
       am stop-app "$package" > /dev/null 2>&1
+      cmd shortcut reset-all-throttling > /dev/null 2>&1      
     fi
   done
-}
-
-ram_cleaner() {
-  for app in $(cmd package list packages -3 | cut -f 2 -d ":"); do
-if [[ ! "$app" == "com.fhrz.axeron" ]]; then
-cmd activity force-stop "$app"
-cmd activity kill "$app"
-fi
-done
 }
 
 if [ "$AXERON" ] && ! echo "$CORE" | grep -q "$this_core"; then
@@ -113,7 +105,6 @@ time_diff=$((current_time - last_time))
 
 if [ "$time_diff" -ge 2700000 ] || [ ! -e "$log_file" ]; then
   optimize_app
-  ram_cleaner
   echo -n "$current_time" > "$log_file"
 fi
 
