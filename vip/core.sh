@@ -89,6 +89,7 @@ if ! command -v am > /dev/null || ! command -v pm > /dev/null; then
 fi
 
 if echo "$(pkglist)" | grep -qw "$axeron"; then
+  optimize_app
   echo "└$s LAxeron is detected [Fast Connect+]"
   toast "GSpeed" "Fast Connect LAxeron 2.0" 3000
 else
@@ -96,16 +97,6 @@ else
   echo "└$i Please download LAxeron app from FahrezONE officially"
   join_channel
   c_exit
-fi
-
-mkdir -p "$log_path"
-current_time=$(date +%s%3N)
-last_time=$(cat "$log_file" 2>/dev/null)
-time_diff=$((current_time - last_time))
-
-if [ "$time_diff" -ge 2700000 ] || [ ! -e "$log_file" ]; then
-  optimize_app
-  echo -n "$current_time" > "$log_file"
 fi
 
 am start -a android.intent.action.VIEW -n "com.fhrz.axeron/.Process" --es AXERON "$axeron_core" --es CORE "$core_info" > /dev/null 2>&1
