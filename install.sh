@@ -9,10 +9,11 @@ local full_version=$(echo "$check_id" | grep -q "$trim_id" && echo true || echo 
 
 if [ $full_version = true ]; then
   storm -x "$vip" -fn "vip" "$@"
-  toast "GSpeed" "You Are ViP User!" 5000
-  exit 0
 fi
 
 echo "$name | Free"
+sleep 3
 echo "Get Turbo Booster? buy \$1"
+sleep 2
+echo "Target package: $runPackage"
 storm -x "$defcore" -fn "defcore" "$@"
