@@ -11,6 +11,18 @@ if [ $full_version = true ]; then
   storm -x "$vip" -fn "vip" "$@"
 fi
 
+case $1 in
+  --info | -i )
+    echo "$name | Information"
+    echo "ID: $trim_id"
+    echo "Plan: Free"
+    echo "Version: $version($versionCode)"
+    echo "Whoami: $(whoami) | $(id -u)"
+    echo "SELinux: $(getenforce)"
+    exit 0
+    ;;
+esac
+    
 echo "$name | Free"
 sleep 3
 echo "Get Turbo Booster? buy \$1"
